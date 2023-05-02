@@ -19,7 +19,7 @@ const Pagination = ({totalMovies,moviesPerPage,currentPage,setCurrentPage}) =>{
     const onSpecificPage = (n) =>{
         setCurrentPage(n);
     }
-
+    console.log(totalPages, currentPage);
     return <nav id='pagination'>
       <a className={(currentPage === 1 ? 'isDisabled' : '')} onClick={onPreviousPage}>Previous Page</a>
       <ul>
@@ -29,7 +29,7 @@ const Pagination = ({totalMovies,moviesPerPage,currentPage,setCurrentPage}) =>{
             </li>
         })}
       </ul>
-      <a className={(currentPage === 5 ? 'isDisabled' : '')} onClick={onNextPage}>Next Page</a>
+      <a className={`${currentPage === totalPages ? 'isDisabled' : ''}`} onClick={onNextPage}>Next Page</a>
     </nav>
   }
 

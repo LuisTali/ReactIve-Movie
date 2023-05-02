@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react';
-import { Link } from 'react-router-dom';
 import Movie from './Movie';
-import Pagination from './Pagination';
-import Modal from './Modal';
+import Pagination from '../Pagination';
+import Modal from '../Modal';
 
 const ListMovies = ({url}) =>{  //URL como parametro para que en base a la routa pedida, muestre las peliculas pedidas ya sea popular, nuevas, tendencia, etc.
     const [movies,setMovies] = useState([]);

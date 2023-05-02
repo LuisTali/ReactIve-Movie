@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from "react";
 import {useParams} from 'react-router-dom';
-import Modal from './Modal';
+import Modal from '../Modal';
+import Movie from "./Movie";
 
 const InfoMovie = () =>{
     const {id} = useParams();
@@ -32,28 +33,28 @@ const InfoMovie = () =>{
     if(loading){
         return  <Modal msg='Loading...'/>
     }
-    return <div className="infoMovie" key={id}>
+    return <>
+    <div className="flexInfo">
         <img src={imgPath + movie.poster_path}/>
-        <div >
-            <div className="textInfo"> 
-            <h3>{movie.original_title}</h3>
-            <h4>{movie.overview}</h4>
-            <h5>{movie.release_date}</h5>
-            <span>{movie.vote_average + ' / 10'}</span>
-            </div>
+        <div className="infoMovie" key={id}>     
+                <h2>{movie.original_title}</h2>
+                <h3>{movie.overview}</h3>
+                <h5>{movie.release_date}</h5>
+                <span>{movie.vote_average + ' / 10'}</span>
+                <h5>Peliculas Relacionadas</h5>
+        </div>    
+        <div className="relatedMovies">
             
-            <div className="relatedMovies">
             <ul >
                 {relatedMovies.map((related)=>{
                     return <li>
-                        <p>{related.title}</p>
+                        <Movie movie={related} related={true}/>
                     </li>
                 })}
             </ul>
-            </div>
-            
-        </div>
+        </div>   
     </div>
+    </>
 }
 
 export default InfoMovie;

@@ -1,4 +1,3 @@
-
 const apiKey = '8fba4011ed49944a422caacc8baf398a';
 
 export const getLatestMovies = async(req,res)=>{ //Obtengo las peliculas actuales en Teatros

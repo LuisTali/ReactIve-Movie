@@ -3,11 +3,15 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import './app.css'
 
 import Navbar from './Navbar';
-import ListMovies from './MovieList';
-import InfoMovie from './InfoMovie';
+import Modal from './Modal';
+import Login from './login';
+import Register from './register';
+import ListMovies from './moviesComponents/MovieList';
+import InfoMovie from './moviesComponents/InfoMovie';
 
 
 function App() {
+  const [user,setUser] = useState({});
   return (
     <Router>
       <Navbar/>
@@ -15,16 +19,13 @@ function App() {
         <Route exact path='/' element={<ListMovies url={'/api'}/>} />
         <Route path='/popular' element={<ListMovies url={'/api/popular'}/>} /> 
         <Route path='/movie/:id' element={<InfoMovie/>}/>
-        <Route path='/about' element={<Msg msg='Acirca de nos'/>}>
-        <Route path='*' element={<Msg msg='No hubo coincidencias de ruta'/>}/>
-        </Route>
+        <Route path='/contact' element={<Modal msg='Acirca de nos'/>} />
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/register' element={<Register/>}/>
+        <Route path='*' element={<Modal msg='No hubo coincidencias de ruta'/>}/>
       </Routes>
     </Router>
   );
-}
-
-const Msg = ({msg}) =>{
-  return <h2>{msg}</h2>
 }
 
 export default App;
