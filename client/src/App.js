@@ -4,8 +4,8 @@ import './app.css'
 
 import Navbar from './Navbar';
 import Modal from './Modal';
-import Login from './Login';
-import Register from './Register';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
 import ListMovies from './moviesComponents/MovieList';
 import InfoMovie from './moviesComponents/InfoMovie';
 import Favorites from './Pages/Favorites'
@@ -13,7 +13,7 @@ import Favorites from './Pages/Favorites'
 
 function App() {
   const [user,setUser] = useState({});
-  console.log(user);
+  const [favsList,setFavsList] = useState([]);
 
   useEffect(()=>{
     const loggedinUser = localStorage.getItem('user');
@@ -32,7 +32,7 @@ function App() {
         <Route path='/contact' element={<Modal msg='Acirca de nos'/>} />
         <Route path='/login' element={<Login setUser={setUser}/>} />
         <Route path='/register' element={<Register/>}/>
-        <Route path='/favs' element={<Favorites url={'/api/favs'} favs={true}/>}/>
+        <Route path='/favs' element={<Favorites user={user} favMovies={user.favMovies}/>}/>
         <Route path='*' element={<Modal msg='No hubo coincidencias de ruta'/>} />
       </Routes>
     </Router>

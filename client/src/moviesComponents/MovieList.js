@@ -40,7 +40,7 @@ const ListMovies = ({url}) =>{  //URL como parametro para que en base a la routa
       {loading && <Modal msg='Loading...'/>} 
       <form className='searchByName' onSubmit={handleSubmit}>
         <input type='text' ref={refSearch}/>
-        <input type='submit' placeholder='submit'/>
+        <input type='submit' value='Buscar'/>
       </form>
       <div className='listMovies'>
         {movies.map((movie) => {

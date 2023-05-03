@@ -2,7 +2,7 @@ import React,{useEffect, useRef,useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-import Modal from './Modal.js';
+import Modal from '../Modal.js';
 
 const Register = () =>{
     const baseUrl = 'http://localhost:5000/auth';

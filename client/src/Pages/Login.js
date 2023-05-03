@@ -2,7 +2,7 @@ import React,{useRef,useState,useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-import Modal from "./Modal";
+import Modal from "../Modal";
 
 const Login = ({setUser}) =>{
     const baseUrl = 'http://localhost:5000/auth';

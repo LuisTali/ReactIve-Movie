@@ -21,6 +21,9 @@ Movie.propTypes={
     vote_average:propTypes.number.isRequired
 } 
 Movie.defaultProps={
+    id:1,
+    poster_path:'noPoster',
+    original_title:'defaultTitle',
     vote_average:1
 }
 

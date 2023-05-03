@@ -19,7 +19,6 @@ const InfoMovie = ({idUser,email}) =>{
     const getRelatedMovies = async() =>{
         const data = await fetch(`/api/related/${id}`);
         const relatedMovies = await data.json();
-        console.log(relatedMovies.moviesRelated.results);
         setRelatedMovies(relatedMovies.moviesRelated.results);
     }
 
@@ -40,8 +39,7 @@ const InfoMovie = ({idUser,email}) =>{
         }else{
             setModalContent('Register first')
             setShowModal(true);
-        }
-        
+        } 
     }
 
     useEffect(()=>{

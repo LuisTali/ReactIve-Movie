@@ -33,7 +33,21 @@ export const getRelatedMovies = async(req,res)=>{
 }
 
 export const chargeMyList = async(req,res)=>{
-    const favMovies = [];
-    const myList = req.body;
-    console.log(myList);
+    const {favMovies} = req.body;
+    const movies = [];
+    for(const idMovie of favMovies){
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${idMovie}?api_key=${apiKey}&language=en-US`);
+        const data = await response.json();
+        const movie = {
+            original_title: data.original_title,
+            poster_path:data.poster_path,
+            id: data.id,
+            vote_average: data.vote_average,
+            overview: data.overview
+        }
+        movies.push(movie)
+        
+    }
+    console.log(movies);
+    res.json({success:true,favsList:movies})
 }
