@@ -1,13 +1,18 @@
 import React,{useState,useEffect} from "react";
 import {useParams} from 'react-router-dom';
+import axios from 'axios';
+
 import Modal from '../Modal';
 import Movie from "./Movie";
 
-const InfoMovie = () =>{
+const InfoMovie = ({idUser,email}) =>{
+    const baseUrl = 'http://localhost:5000/auth';
     const {id} = useParams();
     const [movie,setMovie] = useState({});
     const [relatedMovies,setRelatedMovies] = useState([]);
     const [loading,setLoading] = useState(true);
+    const [showModal,setShowModal] = useState(false);
+    const [modalContent,setModalContent] = useState("");
 
     const imgPath = 'https://image.tmdb.org/t/p/w500/';
     
@@ -26,10 +31,27 @@ const InfoMovie = () =>{
         setLoading(false);
     }
 
+    const addToFavorite = async() =>{
+        console.log(`${idUser} del user ${email}`); //Para comprobar que llegan bien los datos del user
+        if(idUser){
+            axios.post(baseUrl + '/addFav', {movie:{id:id, idUser:idUser}})
+            setModalContent('Movie added to fav')
+            setShowModal(true);
+        }else{
+            setModalContent('Register first')
+            setShowModal(true);
+        }
+        
+    }
+
     useEffect(()=>{
         getMovieById();
-        getRelatedMovies
-    },[])
+        getRelatedMovies;
+        setTimeout(()=>{
+            setShowModal(false);
+        },3000)
+    },[id,showModal]) //Al cliquear en una pelicula destacada obtiene el nuevo Id y fuerza el re-render
+    
     if(loading){
         return  <Modal msg='Loading...'/>
     }
@@ -41,10 +63,11 @@ const InfoMovie = () =>{
                 <h3>{movie.overview}</h3>
                 <h5>{movie.release_date}</h5>
                 <span>{movie.vote_average + ' / 10'}</span>
+                <button id="addFav" onClick={addToFavorite}> Add to Favorite </button>
                 <h5>Peliculas Relacionadas</h5>
+                {showModal && <Modal msg={modalContent}/>}
         </div>    
         <div className="relatedMovies">
-            
             <ul >
                 {relatedMovies.map((related)=>{
                     return <li>

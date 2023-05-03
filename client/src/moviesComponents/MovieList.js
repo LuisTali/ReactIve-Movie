@@ -1,11 +1,13 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import Movie from './Movie';
 import Pagination from '../Pagination';
 import Modal from '../Modal';
 
 const ListMovies = ({url}) =>{  //URL como parametro para que en base a la routa pedida, muestre las peliculas pedidas ya sea popular, nuevas, tendencia, etc.
     const [movies,setMovies] = useState([]);
+    const refSearch = useRef(null);
     const [loading,setLoading] = useState(true);
+    const [movieToSearch,setMovieToSearch] = useState('');
     const totalMovies = movies.length; //Cantidad de peliculas obtenidas con el fetch
     const [moviesPerPage,setMoviesPerPage] = useState(8); //Peliculas maximas mostradas por pagina
     const [page,setPage] = useState(1); //Valor default de la currentPage == 1
@@ -13,6 +15,12 @@ const ListMovies = ({url}) =>{  //URL como parametro para que en base a la routa
     //Al realizar slice al mapeado de las movies, solo muestro las peliculas del array que estan entre firstIndex y lastIndex
     const lastIndex = page * moviesPerPage;//Page 1 * 8 == 8
     const firstIndex = lastIndex - moviesPerPage;//Ultimo indice 8 - 8 == 0
+
+    const handleSubmit = (e) =>{
+      e.preventDefault();
+      let movieName = refSearch.current.value;
+      
+    }
 
     const getData = async() =>{
         const response = await fetch(url);
@@ -30,6 +38,10 @@ const ListMovies = ({url}) =>{  //URL como parametro para que en base a la routa
 
     return<React.Fragment>
       {loading && <Modal msg='Loading...'/>} 
+      <form className='searchByName' onSubmit={handleSubmit}>
+        <input type='text' ref={refSearch}/>
+        <input type='submit' placeholder='submit'/>
+      </form>
       <div className='listMovies'>
         {movies.map((movie) => {
             return <Movie movie={movie}/>

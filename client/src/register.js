@@ -1,9 +1,12 @@
 import React,{useEffect, useRef,useState} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+
 import Modal from './Modal.js';
 
 const Register = () =>{
     const baseUrl = 'http://localhost:5000/auth';
+    const navigate = useNavigate();
     const refName = useRef(null);
     const refEmail = useRef(null);
     const refPassword = useRef(null);
@@ -22,6 +25,7 @@ const Register = () =>{
             refPassword.current.value = "";
             setModalContent("Usuario registrado");
             setShowModal(true);
+            navigate('/login');
         }else{
             setModalContent("Llene todos los campos")
             setShowModal(true)

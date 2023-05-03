@@ -53,7 +53,36 @@ nav li a{
     padding: 0.40rem 0.60rem;
     background-color: rgb(27, 27, 27);
     border-radius: 10%;
+    cursor: pointer;
 }
+
+.searchByName{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+}
+.searchByName input{
+    padding: 0.4rem 0.6rem;
+}
+.searchByName input[type="text"]{
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border: 1px solid black;
+}
+.searchByName input[type="submit"]{
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 1px solid black;
+}
+.searchByName input[type="submit"]:hover{
+    background: black;
+    color: whitesmoke;
+    border: 1px solid white;
+}
+
 
 .listMovies{
     display: grid;
@@ -148,6 +177,17 @@ nav li a{
     margin-top: 5rem;
     height: 600px;
     width: auto;
+}
+#addFav{
+    width: 10%;
+    padding: 0.4rem 0.8rem;
+    border-radius: 10px;
+    font-weight: 600;
+    border: 2px solid white;
+}
+#addFav:active,#addFav:hover{
+    background: black;
+    color: whitesmoke;
 }
 
 .relatedMovies{

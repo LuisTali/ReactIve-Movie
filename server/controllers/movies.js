@@ -31,3 +31,9 @@ export const getRelatedMovies = async(req,res)=>{
     const moviesRelated = await data.json();
     res.json({moviesRelated})
 }
+
+export const chargeMyList = async(req,res)=>{
+    const favMovies = [];
+    const myList = req.body;
+    console.log(myList);
+}
