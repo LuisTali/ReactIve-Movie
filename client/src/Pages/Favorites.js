@@ -8,7 +8,7 @@ const Favorites = ({user, favMovies}) =>{
     const [favsList,setFavsList] = useState([]);
     let listMovies = [];
     const imgPath = 'https://image.tmdb.org/t/p/w500/';
-
+    console.log(favMovies);
     const getData = async() =>{
         const response = await axios.post('/api/favs',{favMovies});
         const data = response.data.favsList;
@@ -17,14 +17,14 @@ const Favorites = ({user, favMovies}) =>{
             return data.indexOf(item) === index;
         })
         setFavsList(result);
+        setIsLoading(false); 
     }
 
     useEffect(()=>{
         if(favMovies){
-            getData();
-            setIsLoading(false);    
+            getData();      
         }
-    },[favMovies])
+    },[favMovies,user])
 
     if(favMovies.length == 0){
         return <>
@@ -43,7 +43,7 @@ const Favorites = ({user, favMovies}) =>{
                         <div className='movie'>
                             <img src={imgPath + movie.poster_path} alt="poster_img"/>
                             <h2>{movie.original_title}</h2>
-                            <h5>{movie.vote_average}</h5>
+                            <h5>{movie.vote_average}/10</h5>
                             <Link to={`/movie/${movie.id}`}>Detalles</Link>
                         </div>
                     </li>

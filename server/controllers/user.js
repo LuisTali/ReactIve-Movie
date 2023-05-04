@@ -70,10 +70,11 @@ export const addMovieToFavorite = (req,res) =>{
         accounts = JSON.parse(reading);
         accounts.map((user) =>{
             if(user.idUser == movie.idUser){
+                let flag = true;
                 user.favMovies.forEach((idMovie) => { //Agregado recientemente
-                    if(idMovie == movie.id) return null;   //Agregado recientemente
-                });  //Agregado recientemente
-                user.favMovies.push(movie.id);
+                    if(idMovie == movie.id) flag = false;  //Agregado recientemente
+                });  //Agregado recientemente 
+                if(flag)user.favMovies.push(movie.id); //Si flag == true, esa pelicula no esta agregada ya asi que la agg
             }
         })
         const data = JSON.stringify(accounts);
@@ -111,11 +112,5 @@ export const removeMovieFromFavorite = (req,res) =>{
             else console.log('Saved');
         });
         res.json({movies:accounts[index].favMovies})
-        /*accounts.map((user)=>{
-            user.favMovies.filter((movie) =>{
-                movie != id;
-            })
-        })*/
     }
-    //res.status(200).json({})
 }

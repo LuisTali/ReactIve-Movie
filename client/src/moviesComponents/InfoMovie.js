@@ -47,10 +47,10 @@ const InfoMovie = ({user,setUser}) =>{
     const addToFavorite = async() =>{
         if(user.idUser){
             axios.post(baseUrl + '/addFav', {movie:{id:id, idUser:user.idUser}})
-            user.favMovies.push(id);
-            console.log(user.favMovies); 
-            setUser(user);
-            setModalContent('Movie added to fav')
+            let newUser = {...user};
+            newUser.favMovies.push(id);
+            setUser(newUser);
+            setModalContent('Movie added to Favorites')
             setShowModal(true);
         }else{
             setModalContent('Register first')
@@ -58,21 +58,35 @@ const InfoMovie = ({user,setUser}) =>{
         } 
     }
 
+    /*let newUser = {...user};
+    newUser.favMovies = newFavList;
+    user.favMovies = newFavList;
+    
+    setUser(newUser);*/
+
     const removeFromFavorite = async()=>{
         console.log('Removed');
+        let response = await axios.post(baseUrl + '/removeFav', {id,idUser:user.idUser})
+        let newFavList = response.data.movies;
+        
+        let newUser = {...user};
+        newUser.favMovies = newFavList;
+        
+       
+        setUser(newUser);
+        setModalContent('Movie removed from Favorites')
+        setShowModal(true);
         //Logica para conectarme al server y enviar los parametros, funcion en Server ya creada y funcionando
     }
 
     useEffect(()=>{
-        console.log(alreadyInFav);
         checkAlreadyInFav();
-        console.log(alreadyInFav);
         getMovieById();
         getRelatedMovies;
         setTimeout(()=>{
             setShowModal(false);
         },3000)
-    },[user.favMovies,id,showModal]) //Al cliquear en una pelicula destacada obtiene el nuevo Id y fuerza el re-render
+    },[user,id,showModal]) //Al cliquear en una pelicula destacada obtiene el nuevo Id y fuerza el re-render
     
     if(loading){
         return  <Modal msg='Loading...'/>
@@ -85,7 +99,7 @@ const InfoMovie = ({user,setUser}) =>{
                 <h3>{movie.overview}</h3>
                 <h5>{movie.release_date}</h5>
                 <span>{movie.vote_average + ' / 10'}</span>
-                {alreadyInFav ? <button id="addFav" onClick={removeFromFavorite}> Remove From Favorite </button> : <button id="addFav" onClick={addToFavorite}> Add to Favorite </button>} 
+                {alreadyInFav ? <button id="addFav" onClick={()=>removeFromFavorite()}> Remove From Favorite </button> : <button id="addFav" onClick={()=>addToFavorite()}> Add to Favorite </button>} 
                 <h5>Peliculas Relacionadas</h5>
                 {showModal && <Modal msg={modalContent}/>}
         </div>    
