@@ -5,8 +5,9 @@ import axios from 'axios';
 import Modal from '../Modal';
 import Movie from "./Movie";
 
-const InfoMovie = ({idUser,email}) =>{
+const InfoMovie = ({user,setUser}) =>{
     const baseUrl = 'http://localhost:5000/auth';
+    const [alreadyInFav,setAlreadyInFav] = useState(false);
     const {id} = useParams();
     const [movie,setMovie] = useState({});
     const [relatedMovies,setRelatedMovies] = useState([]);
@@ -22,6 +23,19 @@ const InfoMovie = ({idUser,email}) =>{
         setRelatedMovies(relatedMovies.moviesRelated.results);
     }
 
+    const checkAlreadyInFav = () =>{
+        let flag = false;
+        if(user.favMovies){
+            user.favMovies.map((movie) =>{
+                if(movie === id){
+                    flag = true; //En cada re-render si Id buscado coincide con los de la lista Favoritos se setea true
+                    return;
+                }
+            })
+            setAlreadyInFav(flag); //En base a la comparacion se setea si ya esta o no en la lista de Favs   
+        }  
+    }
+    
     const getMovieById = async() =>{
         const data = await fetch(`/api/movie/${id}`);
         const movieFinded = await data.json();
@@ -31,9 +45,11 @@ const InfoMovie = ({idUser,email}) =>{
     }
 
     const addToFavorite = async() =>{
-        console.log(`${idUser} del user ${email}`); //Para comprobar que llegan bien los datos del user
-        if(idUser){
-            axios.post(baseUrl + '/addFav', {movie:{id:id, idUser:idUser}})
+        if(user.idUser){
+            axios.post(baseUrl + '/addFav', {movie:{id:id, idUser:user.idUser}})
+            user.favMovies.push(id);
+            console.log(user.favMovies); 
+            setUser(user);
             setModalContent('Movie added to fav')
             setShowModal(true);
         }else{
@@ -42,13 +58,21 @@ const InfoMovie = ({idUser,email}) =>{
         } 
     }
 
+    const removeFromFavorite = async()=>{
+        console.log('Removed');
+        //Logica para conectarme al server y enviar los parametros, funcion en Server ya creada y funcionando
+    }
+
     useEffect(()=>{
+        console.log(alreadyInFav);
+        checkAlreadyInFav();
+        console.log(alreadyInFav);
         getMovieById();
         getRelatedMovies;
         setTimeout(()=>{
             setShowModal(false);
         },3000)
-    },[id,showModal]) //Al cliquear en una pelicula destacada obtiene el nuevo Id y fuerza el re-render
+    },[user.favMovies,id,showModal]) //Al cliquear en una pelicula destacada obtiene el nuevo Id y fuerza el re-render
     
     if(loading){
         return  <Modal msg='Loading...'/>
@@ -61,7 +85,7 @@ const InfoMovie = ({idUser,email}) =>{
                 <h3>{movie.overview}</h3>
                 <h5>{movie.release_date}</h5>
                 <span>{movie.vote_average + ' / 10'}</span>
-                <button id="addFav" onClick={addToFavorite}> Add to Favorite </button>
+                {alreadyInFav ? <button id="addFav" onClick={removeFromFavorite}> Remove From Favorite </button> : <button id="addFav" onClick={addToFavorite}> Add to Favorite </button>} 
                 <h5>Peliculas Relacionadas</h5>
                 {showModal && <Modal msg={modalContent}/>}
         </div>    

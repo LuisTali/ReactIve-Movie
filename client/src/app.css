@@ -149,6 +149,7 @@ nav li a{
     pointer-events: none;
     opacity: 0.5;
 }
+
 .flexInfo{
     display: grid;
     grid-template-columns: (max-content 1fr);
@@ -215,7 +216,6 @@ nav li a{
     width:10rem;
     height: auto;
     margin: 0;
-   
 }
 .relatedMovieAttributos h4{
     overflow: hidden;
@@ -255,4 +255,19 @@ form button{
     font-size: 1.4rem;
     border: 2px solid black;
 }
+
+.scrollableFavs{
+
+}
+.scrollableFavs ul li{
+    display: inline-block;
+    padding: 0.5rem;
+    text-overflow: clip;
+    width: 25rem;
+}
+.scrollableFavs ul li img{
+    height: 350px;
+    
+}
+
 

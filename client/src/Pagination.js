@@ -19,7 +19,7 @@ const Pagination = ({totalMovies,moviesPerPage,currentPage,setCurrentPage}) =>{
     const onSpecificPage = (n) =>{
         setCurrentPage(n);
     }
-    console.log(totalPages, currentPage);
+    
     return <nav id='pagination'>
       <a className={(currentPage === 1 ? 'isDisabled' : '')} onClick={onPreviousPage}>Previous Page</a>
       <ul>

@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<ListMovies url={'/api'}/>} />
         <Route path='/popular' element={<ListMovies url={'/api/popular'} />} /> 
-        <Route path='/movie/:id' element={<InfoMovie {...user}/>} />
+        <Route path='/movie/:id' element={<InfoMovie user={user} setUser={setUser}/>} />
         <Route path='/contact' element={<Modal msg='Acirca de nos'/>} />
         <Route path='/login' element={<Login setUser={setUser}/>} />
         <Route path='/register' element={<Register/>}/>

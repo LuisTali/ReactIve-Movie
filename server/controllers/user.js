@@ -66,12 +66,13 @@ export const addMovieToFavorite = (req,res) =>{
     const {movie} = req.body;
     let accounts;
     if(movie){
-        console.log(movie.id );
-        console.log(movie.idUser);
         const reading = fs.readFileSync('./server/public/users.json','utf-8')
         accounts = JSON.parse(reading);
         accounts.map((user) =>{
             if(user.idUser == movie.idUser){
+                user.favMovies.forEach((idMovie) => { //Agregado recientemente
+                    if(idMovie == movie.id) return null;   //Agregado recientemente
+                });  //Agregado recientemente
                 user.favMovies.push(movie.id);
             }
         })
@@ -86,4 +87,35 @@ export const addMovieToFavorite = (req,res) =>{
     }else{
         console.log('does not exist');
     }
+}
+
+const getIndexOfUser = (accounts,idUser) =>{
+    for(let i = 0; i < accounts.length; i++){
+        if(accounts[i].idUser == idUser) return i;
+    }
+}
+
+export const removeMovieFromFavorite = (req,res) =>{
+    const {id,idUser} = req.body;
+    let accounts;
+    if(id){
+        const reading = fs.readFileSync('./server/public/users.json','utf-8')
+        accounts = JSON.parse(reading);
+        let index = getIndexOfUser(accounts,idUser);
+        accounts[index].favMovies = accounts[index].favMovies.filter((movie) => movie != id);
+        const data = JSON.stringify(accounts);
+        fs.writeFile('./server/public/users.json',data,(error,res)=>{
+            if(error){
+                throw error;
+            } 
+            else console.log('Saved');
+        });
+        res.json({movies:accounts[index].favMovies})
+        /*accounts.map((user)=>{
+            user.favMovies.filter((movie) =>{
+                movie != id;
+            })
+        })*/
+    }
+    //res.status(200).json({})
 }
