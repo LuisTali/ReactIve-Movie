@@ -12,8 +12,8 @@ const Navbar = ({completeName,email,setUser}) =>{
     }
 
     return <nav>
-        <a href='https://github.com/LuisTali' target="_blank"><img src={'/ltLogo.png'} /></a>
-        {completeName && <h5 style={{color:'black'}}>{`You are signed as ${email}`}</h5>}
+        <a href='https://www.linkedin.com/in/luis-taliercio-43a335182/' target="_blank"><img src={'/ltLogo.png'} /></a>
+        <h1 style={{color:'black', textShadow:'rgb(220, 220, 220) -4px -4px'}}>React(ive) Movie</h1>
         <ul>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/popular'>Popular</Link></li>

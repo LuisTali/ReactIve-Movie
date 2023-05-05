@@ -8,11 +8,10 @@ const Favorites = ({user, favMovies}) =>{
     const [favsList,setFavsList] = useState([]);
     let listMovies = [];
     const imgPath = 'https://image.tmdb.org/t/p/w500/';
-    console.log(favMovies);
+    
     const getData = async() =>{
         const response = await axios.post('/api/favs',{favMovies});
         const data = response.data.favsList;
-        console.log(data);
         let result = data.filter((item,index)=>{
             return data.indexOf(item) === index;
         })

@@ -39,6 +39,7 @@ const InfoMovie = ({user,setUser}) =>{
     const getMovieById = async() =>{
         const data = await fetch(`/api/movie/${id}`);
         const movieFinded = await data.json();
+        console.log(movieFinded.movie.genres);
         setMovie(movieFinded.movie);
         getRelatedMovies();
         setLoading(false);
@@ -58,31 +59,21 @@ const InfoMovie = ({user,setUser}) =>{
         } 
     }
 
-    /*let newUser = {...user};
-    newUser.favMovies = newFavList;
-    user.favMovies = newFavList;
-    
-    setUser(newUser);*/
-
     const removeFromFavorite = async()=>{
         console.log('Removed');
         let response = await axios.post(baseUrl + '/removeFav', {id,idUser:user.idUser})
         let newFavList = response.data.movies;
-        
-        let newUser = {...user};
+        let newUser = {...user}; //Para forzar el re-render necesito setear el State con un objeto totalmente nuevo, por eso realizo este paso 
         newUser.favMovies = newFavList;
-        
-       
         setUser(newUser);
         setModalContent('Movie removed from Favorites')
         setShowModal(true);
-        //Logica para conectarme al server y enviar los parametros, funcion en Server ya creada y funcionando
     }
 
     useEffect(()=>{
         checkAlreadyInFav();
         getMovieById();
-        getRelatedMovies;
+        getRelatedMovies();
         setTimeout(()=>{
             setShowModal(false);
         },3000)
@@ -95,13 +86,18 @@ const InfoMovie = ({user,setUser}) =>{
     <div className="flexInfo">
         <img src={imgPath + movie.poster_path}/>
         <div className="infoMovie" key={id}>     
-                <h2>{movie.original_title}</h2>
+            <h2>{movie.original_title}</h2>
+            <div className="subtitleInfo">
+                <h5>{movie.release_date} ·  </h5>
+                <ul className="genres">
+                    {movie.genres.map((genre) => <li><h5 >{genre.name}</h5></li>)}
+                </ul>
+                <h5> ·{' '+ movie.vote_average.toFixed(2) + ' / 10' /*toFixed a 2 decimales*/}</h5> 
+            </div>
                 <h3>{movie.overview}</h3>
-                <h5>{movie.release_date}</h5>
-                <span>{movie.vote_average + ' / 10'}</span>
-                {alreadyInFav ? <button id="addFav" onClick={()=>removeFromFavorite()}> Remove From Favorite </button> : <button id="addFav" onClick={()=>addToFavorite()}> Add to Favorite </button>} 
-                <h5>Peliculas Relacionadas</h5>
+                {alreadyInFav ? <button id="manageFav" onClick={()=>removeFromFavorite()}> Remove from Favorite </button> : <button id="manageFav" onClick={()=>addToFavorite()}> Add to Favorite </button>} 
                 {showModal && <Modal msg={modalContent}/>}
+                <h5>Peliculas Relacionadas</h5>
         </div>    
         <div className="relatedMovies">
             <ul >

@@ -9,7 +9,7 @@ const Movie = ({movie,related}) =>{
     return <div className={related ? 'relatedMovieAttributos' : 'movie'} key={id}>
       <h4>{original_title}</h4>
       <img src={imgPath + poster_path} alt='posterImg' />
-      <h6>{vote_average}</h6>
+      <h6>{vote_average.toFixed(2)}/10</h6>
       <Link to={`/movie/${id}`}>Detalles</Link>
     </div>
 }

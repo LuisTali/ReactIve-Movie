@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import './app.css'
 
 import Navbar from './Navbar';
+import Footer from './Footer'
 import Modal from './Modal';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
@@ -35,6 +36,7 @@ function App() {
         <Route path='/favs' element={<Favorites user={user} favMovies={user.favMovies}/>}/>
         <Route path='*' element={<Modal msg='No hubo coincidencias de ruta'/>} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }

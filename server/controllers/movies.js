@@ -1,15 +1,19 @@
 const apiKey = '8fba4011ed49944a422caacc8baf398a';
 
 export const getLatestMovies = async(req,res)=>{ //Obtengo las peliculas actuales en Teatros
-    const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`);
-    const data = await response.json();
-    const movieList = data.results;
+    let movieList = [];
+    for(let i = 1; i < 5; i++){
+        const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=${i}`);
+        const data = await response.json();
+        const moviesList = data.results;
+        movieList.push(...moviesList);
+    }
     res.json({success:true,movieList})
 };
 
 export const getPopularMovies = async(req,res)=>{ //Obtengo las peliculas mas populares
     let movieList = [];
-    for(let i = 1; i < 3; i++){ //Obtengo las dos primeras paginas de peliculas Populares
+    for(let i = 1; i < 5; i++){ //Obtengo las dos primeras paginas de peliculas Populares
         const data = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${i}`);
         const movies = await data.json();
         const moviesList = movies.results; //Obtengo la lista de peliculas de la pagina i
