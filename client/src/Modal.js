@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 
-const Modal = ({msg}) =>{
-    const [isShow,setIsShow] = useState(true);
-
-    return <h3 className={`modal ${!isShow && 'isInactive'}`}>{msg}</h3>
+const Modal = ({msg,setShowModal,type}) =>{
+    useEffect(()=>{
+        if(type){
+            if(type == 'static') return;
+        }else{
+            setTimeout(()=>{
+                if(setShowModal) setShowModal(false);
+            },3000)
+        }
+       
+    })
+    return <h3 className={`modal`}>{msg}</h3>
 }
 
 export default Modal;

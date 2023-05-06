@@ -41,14 +41,8 @@ const Login = ({setUser}) =>{
         }
     }
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            setShowModal(false);
-        },3000)
-    },[showModal])
-
-    return <>
-        {showModal && <Modal msg={modalContent}/>}
+    return <div className="loginForm">
+        {showModal && <Modal msg={modalContent} setShowModal={setShowModal}/>}
 
         <form onSubmit={handleSubmit}>
             <div className="inputGroup">
@@ -62,7 +56,7 @@ const Login = ({setUser}) =>{
             <button type="subtmit">submit</button>
             <label>Don't you have an Account?</label><Link to='/register'>Register</Link>
         </form>
-    </>
+    </div>
 }
 
 export default Login;

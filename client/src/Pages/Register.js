@@ -32,14 +32,8 @@ const Register = () =>{
         }
     }
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            setShowModal(false);
-        },3000)
-    },[showModal])
-
     return <>
-        {showModal && <Modal msg={modalContent}/>}
+        {showModal && <Modal msg={modalContent} setShowModal={setShowModal}/>}
         
         <form onSubmit={handleSubmit}>
             <h2>Create an Account</h2>

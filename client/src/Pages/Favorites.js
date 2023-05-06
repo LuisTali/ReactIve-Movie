@@ -4,7 +4,7 @@ import axios from "axios";
 import Modal from "../Modal";
 
 const Favorites = ({user, favMovies}) =>{
-    const [isLoading,setIsLoading] = useState(true);
+    const [showModal,setShowModal] = useState(true);
     const [favsList,setFavsList] = useState([]);
     let listMovies = [];
     const imgPath = 'https://image.tmdb.org/t/p/w500/';
@@ -16,7 +16,7 @@ const Favorites = ({user, favMovies}) =>{
             return data.indexOf(item) === index;
         })
         setFavsList(result);
-        setIsLoading(false); 
+        setShowModal(false); 
     }
 
     useEffect(()=>{
@@ -32,19 +32,21 @@ const Favorites = ({user, favMovies}) =>{
     }
 
     return<>
-        <div>
+        <div className="favsList">
             <h2 style={{textAlign:'center'}}>{`Favorite Movies of ${user.completeName}`}</h2>
-            {isLoading && <Modal msg={'Loading...'}/>}
+            {showModal && <Modal msg={'Loading...'} setShowModal={setShowModal}/>}
             <div className="scrollableFavs">
                 <ul>
                 {favsList.map((movie)=>{
                     return <li>
-                        <div className='movie'>
+                        <div className='favMovie'>
+                            <article className="posterArticle">
                             <img src={imgPath + movie.poster_path} alt="poster_img"/>
+                            </article>
                             <h2>{movie.original_title}</h2>
-                            <h5>{movie.vote_average}/10</h5>
+                            <h5>{movie.vote_average.toFixed(2)}/10</h5>
                             <Link to={`/movie/${movie.id}`}>Detalles</Link>
-                        </div>
+                        </div>                   
                     </li>
                 })}
                 </ul>

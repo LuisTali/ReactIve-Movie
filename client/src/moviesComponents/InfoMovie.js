@@ -23,6 +23,8 @@ const InfoMovie = ({user,setUser}) =>{
         setRelatedMovies(relatedMovies.moviesRelated.results);
     }
 
+   
+
     const checkAlreadyInFav = () =>{
         let flag = false;
         if(user.favMovies){
@@ -74,10 +76,7 @@ const InfoMovie = ({user,setUser}) =>{
         checkAlreadyInFav();
         getMovieById();
         getRelatedMovies();
-        setTimeout(()=>{
-            setShowModal(false);
-        },3000)
-    },[user,id,showModal]) //Al cliquear en una pelicula destacada obtiene el nuevo Id y fuerza el re-render
+    },[user,id]) //Al cliquear en una pelicula destacada obtiene el nuevo Id y fuerza el re-render
     
     if(loading){
         return  <Modal msg='Loading...'/>
@@ -96,7 +95,7 @@ const InfoMovie = ({user,setUser}) =>{
             </div>
                 <h3>{movie.overview}</h3>
                 {alreadyInFav ? <button id="manageFav" onClick={()=>removeFromFavorite()}> Remove from Favorite </button> : <button id="manageFav" onClick={()=>addToFavorite()}> Add to Favorite </button>} 
-                {showModal && <Modal msg={modalContent}/>}
+                {showModal && <Modal msg={modalContent} setShowModal={setShowModal}/>}
                 <h5>Peliculas Relacionadas</h5>
         </div>    
         <div className="relatedMovies">

@@ -7,6 +7,7 @@ import Footer from './Footer'
 import Modal from './Modal';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import Contact from './Pages/Contact';
 import ListMovies from './moviesComponents/MovieList';
 import InfoMovie from './moviesComponents/InfoMovie';
 import Favorites from './Pages/Favorites'
@@ -27,10 +28,10 @@ function App() {
     <Router>
       <Navbar {...user} setUser={setUser}/>
       <Routes>
-        <Route exact path='/' element={<ListMovies url={'/api'}/>} />
-        <Route path='/popular' element={<ListMovies url={'/api/popular'} />} /> 
+        <Route exact path='/' element={<ListMovies url={'/api'} title='Now Playing'/>} />
+        <Route path='/popular' element={<ListMovies url={'/api/popular'} title='Popular Movies'/>} /> 
         <Route path='/movie/:id' element={<InfoMovie user={user} setUser={setUser}/>} />
-        <Route path='/contact' element={<Modal msg='Acirca de nos'/>} />
+        <Route path='/contact' element={<Contact/>} />
         <Route path='/login' element={<Login setUser={setUser}/>} />
         <Route path='/register' element={<Register/>}/>
         <Route path='/favs' element={<Favorites user={user} favMovies={user.favMovies}/>}/>

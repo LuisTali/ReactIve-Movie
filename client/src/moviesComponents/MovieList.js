@@ -3,10 +3,10 @@ import Movie from './Movie';
 import Pagination from '../Pagination';
 import Modal from '../Modal';
 
-const ListMovies = ({url}) =>{  //URL como parametro para que en base a la routa pedida, muestre las peliculas pedidas ya sea popular, nuevas, tendencia, etc.
+const ListMovies = ({url,title}) =>{  //URL como parametro para que en base a la routa pedida, muestre las peliculas pedidas ya sea popular, nuevas, tendencia, etc.
     const [movies,setMovies] = useState([]);
     const refSearch = useRef(null);
-    const [loading,setLoading] = useState(true);
+    const [showModal,setShowModal] = useState(true);
     const [movieToSearch,setMovieToSearch] = useState('');
     const totalMovies = movies.length; //Cantidad de peliculas obtenidas con el fetch
     const [moviesPerPage,setMoviesPerPage] = useState(8); //Peliculas maximas mostradas por pagina
@@ -29,7 +29,7 @@ const ListMovies = ({url}) =>{  //URL como parametro para que en base a la routa
         //movieList[2].vote_average = undefined; Para que propTypes default funcione, debe enviarse un valor sin definir, null lo toma como valor
         setPage(1);
         setMovies(movieList);
-        setLoading(false);
+        setShowModal(false); //No se muestra mas el modal 'Loading...'
     }
     
     useEffect(()=>{
@@ -37,11 +37,12 @@ const ListMovies = ({url}) =>{  //URL como parametro para que en base a la routa
     },[url]); //Al editarlo para que obtenga una URL y en base a eso realizar el fetch, debere colocar aqui url, para que al cambiar se re-renderice
 
     return<React.Fragment>
-      {loading && <Modal msg='Loading...'/>} 
+      {showModal && <Modal msg='Loading...' setShowModal={setShowModal}/>} 
       <form className='searchByName' onSubmit={handleSubmit}>
         <input type='text' ref={refSearch}/>
         <input type='submit' value='Buscar'/>
       </form>
+      <h2 style={{textAlign:'center', marginTop:'2rem'}}>{title}</h2>
       <div className='listMovies'>
         {movies.map((movie) => {
             return <Movie movie={movie}/>
