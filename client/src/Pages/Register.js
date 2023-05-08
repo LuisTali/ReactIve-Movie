@@ -32,7 +32,7 @@ const Register = () =>{
         }
     }
 
-    return <>
+    return <div className="registerForm">
         {showModal && <Modal msg={modalContent} setShowModal={setShowModal}/>}
         
         <form onSubmit={handleSubmit}>
@@ -51,7 +51,7 @@ const Register = () =>{
             </div>
             <button type="subtmit">submit</button>
         </form>
-    </>
+    </div>
 }
 
 export default Register;

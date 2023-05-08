@@ -85,7 +85,6 @@ nav li a{
     border: 1px solid white;
 }
 
-
 .listMovies{
     display: grid;
     /*4 columnas de minimo 300px ancho y maximo 300px*/
@@ -262,7 +261,8 @@ nav li a{
 }
 
 .loginForm{
-    height: 780px;
+    height: 630px;
+    margin-top: 10%;   
 }
 form{
     width: 90%;
@@ -271,34 +271,60 @@ form{
     flex-direction: column;
     align-items: center;
     margin-top: 1rem;
+    background-color: rgb(26, 26, 26);
+    border-radius: 10px;
+    padding: 3rem 0rem;
 }
 .inputGroup{
     display: flex;
     padding: 0.5rem 1rem;
+    flex-direction: column;
     justify-content: space-between;
-    width: 40%;
+    width: 30%;
     margin: 1rem;
 }
 .inputGroup label{
     font-size: 2rem;
+    font-weight: 600;
 }
 .inputGroup input{
     padding: 0.2rem 0.8rem;
     font-size: 1.4rem;
+    border-radius: 10px;
+    border: 2px solid black;
 }
 form button{
     padding: .5rem 2rem;
     border-radius: 10px;
     font-size: 1.4rem;
-    border: 2px solid black;
+    border: 2px solid rgb(26, 26, 26);
+    font-weight: 600;
+    background-color: rgb(0, 0, 0);
+    color: aliceblue;
+}
+.loginForm #createAccountLogin{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.loginForm #createAccountLogin a{
+    color: blueviolet;
+    font-weight: 600;
+}
+
+.registerForm{
+    margin-top: 10%;
 }
 
 .favsList{
     margin: 2rem 0rem;
+    margin-top: 6%;
 }
 .scrollableFavs{
     width: 90%;
     margin-left: 5%;
+    margin-top: 2%;
     padding: 0.5rem 1rem;
     overflow-x: scroll;
     white-space: nowrap;
@@ -351,7 +377,12 @@ form button{
 }
 
 .footer{
-    margin-top: 1rem;
+   margin-top: 4rem;
+}
+.footer #logoGithub{
+    width:30px;
+    height:30px;
+    margin-left:0.25rem;
 }
 
 

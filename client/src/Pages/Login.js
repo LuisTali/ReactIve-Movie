@@ -54,7 +54,9 @@ const Login = ({setUser}) =>{
                 <input type="password" ref={refPassword}/>
             </div>
             <button type="subtmit">submit</button>
-            <label>Don't you have an Account?</label><Link to='/register'>Register</Link>
+            <div id="createAccountLogin">
+                <label>Don't you have an Account?</label><Link to='/register'>Register</Link>
+            </div>
         </form>
     </div>
 }

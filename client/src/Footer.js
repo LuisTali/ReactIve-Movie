@@ -5,7 +5,7 @@ const Footer = () =>{
         <a href="https://github.com/LuisTali " target="_blank">
             <h2 style={{textAlign:'center',paddingBottom:'1rem',color:'white'}}>
                 Made by Luis Taliercio 
-                <img style={{width:'40px', height:'40px', marginLeft:'0.25rem'}} src="/github.png"/>
+                <img id="logoGithub" src="/github.png"/>
             </h2>
         </a>
         

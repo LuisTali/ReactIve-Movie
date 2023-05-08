@@ -38,10 +38,6 @@ const ListMovies = ({url,title}) =>{  //URL como parametro para que en base a la
 
     return<React.Fragment>
       {showModal && <Modal msg='Loading...' setShowModal={setShowModal}/>} 
-      <form className='searchByName' onSubmit={handleSubmit}>
-        <input type='text' ref={refSearch}/>
-        <input type='submit' value='Buscar'/>
-      </form>
       <h2 style={{textAlign:'center', marginTop:'2rem'}}>{title}</h2>
       <div className='listMovies'>
         {movies.map((movie) => {
