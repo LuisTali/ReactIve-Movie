@@ -1,5 +1,5 @@
 A preview of ReactIve Movie, the Single Page Application I am developing using React.js, Node.js, CSS and the data of the Movie DataBase API. 
-To manage the accounts and their favorites movies I have created a JSON file in the server side to manage this information.
+For user accounts and their favorites movies I have created a JSON file in the server side to manage this information.
 Here are the images
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
