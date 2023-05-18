@@ -52,6 +52,5 @@ export const chargeMyList = async(req,res)=>{
         movies.push(movie)
         
     }
-    console.log(movies);
     res.json({success:true,favsList:movies})
 }
